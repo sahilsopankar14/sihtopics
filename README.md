@@ -8,7 +8,7 @@
 | 26096 | Digital Heritage Archive for Memorials, Manuscripts & Ambedkar: AI-Powered Institutional Archive and Audio-Visual Knowledge Platform |Ministry of Social Justice and Empowerment | Hardware |	Heritage & Culture |git commit -m "added PS 26096"
 | 26140 | AI-Based Interactive Quantum Algorithm Learning Platform | Egreen Quanta | Software | Smart Education |git commit -m "added PS 26140"
 | 26144 | Design & Development of a High-Sensitivity Micro barometer Infrasound sensor | National Technical Research Organisation (NTRO) | Hardware | Miscellaneous |git commit -m "added PS 26144"
-|---|---|---|---|---|
+| 26172 | Low Latency and Efficient Voice Activator for Edge Devices | Indian Space Research Organisation(ISRO) | Hardware | Miscellaneous |git commit -m "added PS 26172"
 |---|---|---|---|---|
 |---|---|---|---|---|
 |---|---|---|---|---|
