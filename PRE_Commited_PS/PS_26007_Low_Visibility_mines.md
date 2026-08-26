@@ -1,20 +1,20 @@
-SIH26007 — Pre-Commitment Research Report
-Safe and Efficient Operation of Mine Vehicles in Fog and Low-Visibility Conditions in Open Cast Iron Ore Mines
-Problem Statement: SIH26007
-Ministry: Ministry of Steel
-Organization: NMDC
-Category: Hardware / Smart Automation
-Core domain: Mining safety + intelligent transportation + sensor fusion + AI/ML + IoT + driver assistance
+# SIH26007 — Pre-Commitment Research Report
+## Safe and Efficient Operation of Mine Vehicles in Fog and Low-Visibility Conditions in Open Cast Iron Ore Mines
+**Problem Statement:** SIH26007
+**Ministry:** Ministry of Steel
+**Organization:** NMDC
+**Category:** Hardware / Smart Automation
+**Core domain:** Mining safety + intelligent transportation + sensor fusion + AI/ML + IoT + driver assistance
 
-1. First: What exactly is the problem?
-Before thinking about LiDAR, radar, AI, cameras, dashboards, etc., understand this one sentence:
+## 1. Problem Definition
+Before considering LiDAR, radar, AI, cameras, dashboards, or related technologies, the problem can be stated as follows:
 
 A huge mining vehicle has to travel on a mine haul road, but during severe fog its driver cannot see far enough ahead to safely operate the vehicle at normal/efficient speeds.
 The problem is therefore not simply “fog.”
-The real problem is:
+The underlying operational problem is:
 Low visibility → reduced situational awareness → increased uncertainty → driver slows/stops or may fail to detect hazards → collision/accident risk increases → haulage efficiency decreases → production is affected.
 The official problem statement says Bailadila can experience visibility as low as 3–5 metres during severe monsoon conditions. (SIH Fit)
-Imagine this:
+The operating scenario is represented below:
 
              DUMPER
         ┌──────────────┐
@@ -31,23 +31,23 @@ Imagine this:
         Road curve
         Obstacle
         Road edge
-The driver may simply not have enough information to make a safe decision.
+The driver may not have sufficient information to make a safe decision.
 
-2. What can actually go wrong?
-This is one of the most important things your entire team needs to understand.
-Don't say only:
+## 2. Failure Scenarios
+The accident mechanism must be understood by the complete project team.
+The statement:
 
 “Fog causes accidents.”
-Understand how the accident happens.
+does not by itself describe how the accident occurs. The accident mechanism is as follows.
 
-Scenario A — Vehicle ahead
-Your dumper
+### Scenario A — Vehicle ahead
+The dumper under consideration
      ↓
    🚛  ───────────────→
 
               🚛
         Vehicle ahead
-Your vehicle is travelling at, say, 20–25 km/h.
+The vehicle is travelling at, for example, 20–25 km/h.
 Because of fog:
 
 driver cannot see far ahead
@@ -55,11 +55,11 @@ another dumper is moving/stopped
 driver notices it too late
 braking distance is not enough
 collision occurs
-Your system should therefore answer:
+The system should therefore answer:
 “Is there an object/vehicle ahead, how far away is it, how fast is it moving, and is the current situation dangerous?”
 
-3. Scenario B — Human/person ahead
-Imagine a worker crossing the haul road.
+## 3. Scenario B — Human/person ahead
+The scenario consists of a worker crossing the haul road.
 
                  👷
                  ↑
@@ -82,20 +82,19 @@ equipment
 dust/fog artifact
 This is where AI can become useful.
 
-4. Why do we need AI?
-This was one of your biggest questions, and you're absolutely right to ask it.
-You don't need AI just because the SIH problem statement says AI/ML.
-Consider a simple radar.
+## 4. Rationale for AI
+The requirement for AI should be established independently of the inclusion of AI/ML in the SIH problem statement.
+A simple radar provides the following example.
 Radar says:
 
 Object detected at 30 m.
 That's already useful.
-You could write:
+The following rule could be written:
 
 IF object_distance < 20m
     THEN WARNING
 No AI required.
-But now imagine:
+However, consider the following combined observations:
 
 Radar:
 Object at 32 m
@@ -119,15 +118,14 @@ AI/ML can help answer questions such as:
 “Is it probably another vehicle?”
 “Is the object actually moving?”
 “Is this a false detection?”
-“How confident are we?”
+“What is the system's confidence level?”
 “What is the likelihood of collision?”
 That is where AI becomes meaningful.
 
-5. Very important distinction
-Your system has three different jobs.
-Don't mix them together.
+## 5. Functional Distinction
+The system has three distinct functions. These functions should not be conflated.
 
-Job 1 — SENSING
+### Job 1 — SENSING
 Hardware asks:
 
 “What is physically around me?”
@@ -140,10 +138,10 @@ thermal camera
 GPS
 IMU
 
-Job 2 — PERCEPTION / INTERPRETATION
+### Job 2 — PERCEPTION / INTERPRETATION
 Software/AI asks:
 
-“What am I looking at?”
+“What is being observed?”
 Examples:
 
 Object detected
@@ -158,10 +156,10 @@ Is it moving?
        ↓
 Where is it?
 
-Job 3 — DECISION
+### Job 3 — DECISION
 Software asks:
 
-“What should I do about it?”
+“What action should be taken?”
 Example:
 
 Human detected
@@ -177,11 +175,11 @@ RED ALERT
 BUZZER + DISPLAY
        ↓
 "STOP / BRAKE"
-That is the core architecture you were trying to understand.
+This constitutes the core system architecture.
 
-6. What is the actual solution we are imagining?
-At this stage, do not commit to the exact hardware yet.
-But a possible architecture could look like:
+## 6. Candidate Solution Architecture
+At this stage, the exact hardware should not yet be selected.
+A possible architecture is as follows:
 
               ┌──────────────────────┐
               │      MINE DUMPER     │
@@ -205,18 +203,18 @@ But a possible architecture could look like:
                          ↓
         ┌────────────────┴──────────────┐
         ↓                               ↓
- DRIVER ALERT                     CONTROL ROOM
+       DRIVER ALERT                     CONTROL ROOM
         ↓                               ↓
- Display/Buzzer                    Dashboard
- Vibration                         Fleet map
- Voice Alert                       Alerts
-This is much more meaningful than saying:
+       Display/Buzzer                    Dashboard
+       Vibration                         Fleet map
+       Voice Alert                       Alerts
+This architecture is more specific than the statement:
 
-“We'll use AI + LiDAR + IoT + GPS.”
+“The system will use AI + LiDAR + IoT + GPS.”
 
-7. What exactly should the system monitor?
-This is another question you need to answer before building.
-Your monitoring system could monitor:
+## 7. Monitoring Requirements
+This question should be answered before system construction.
+The monitoring system could monitor:
 
 Vehicle-level information
 current vehicle location
@@ -261,9 +259,8 @@ temperature
 humidity
 visibility
 
-8. What should the driver actually see?
-This is extremely important.
-Do not make the driver look at a complicated dashboard while driving a giant dumper.
+## 8. Driver Information Requirements
+The driver should not be required to inspect a complicated dashboard while operating a large dumper.
 The driver should receive extremely simple information.
 For example:
 
@@ -291,12 +288,11 @@ buzzer
 vibration
 voice warning
 visual warning
-The driver shouldn't need to interpret charts.
+The driver should not need to interpret charts.
 
-9. What is the control-room dashboard?
-Think of it as air-traffic control for mine vehicles.
-Instead of monitoring airplanes, the operator monitors dumpers.
-Something like:
+## 9. Control-Room Dashboard
+The control-room dashboard functions as an air-traffic-control view for mine vehicles. Instead of monitoring airplanes, the operator monitors dumpers.
+An example is:
 
              MINE CONTROL ROOM
 
@@ -323,8 +319,8 @@ Something like:
  Rain: Moderate
 The dashboard is useful because the mine operator gets a fleet-wide view rather than only individual drivers.
 
-10. What does the AI model actually predict?
-This needs to be one of your research questions.
+## 10. AI Model Prediction Tasks
+This should be one of the research questions.
 Possible AI tasks include:
 
 Object detection
@@ -370,13 +366,12 @@ abnormal speed
 unusual stopping
 unexpected movement
 unusual route behaviour
-But do not assume every one of these belongs in your final prototype.
+However, not every item necessarily belongs in the final prototype.
 
-11. What does LiDAR mean?
-You specifically asked about this.
+## 11. LiDAR Definition
+LiDAR is defined as follows.
 LiDAR = Light Detection and Ranging.
-Think of it as a sensor that uses laser/light pulses to measure distances.
-Imagine throwing thousands of tiny invisible measuring tapes around the vehicle.
+It is a sensor that uses laser/light pulses to measure distances. Conceptually, it is equivalent to distributing thousands of tiny invisible measuring tapes around the vehicle.
 
                 •
            •         •
@@ -390,9 +385,9 @@ It can create a 3D point cloud.
 A point cloud is basically:
 
 . . . . . . .
- . . . . . .
+- . . . . . .
 .     🚛     .
- . . . . . .
+- . . . . . .
 Thousands/millions of points can describe:
 
 road
@@ -401,9 +396,9 @@ wall
 rock
 terrain
 obstacles
-That's what we meant by a 3D shape/map.
+This represents a 3D shape/map.
 
-12. But LiDAR has a problem
+## 12. LiDAR Limitations
 LiDAR uses light.
 Fog contains water droplets.
 Rain contains water droplets.
@@ -412,17 +407,17 @@ Those particles can scatter/reflect the laser.
 Therefore:
 
 Heavy fog, rain and dust can degrade LiDAR performance.
-This is why you shouldn't simply say:
+Accordingly, the statement:
 
-“We'll use LiDAR because it's accurate.”
-You should ask:
+“LiDAR will be used because it is accurate.”
+should be replaced by the research question:
 
 “How does LiDAR behave in Bailadila's actual environmental conditions?”
-That's a research question.
+This is a research question.
 
-13. What is radar?
+## 13. Radar Definition
 Radar uses radio waves rather than visible light.
-Think of it like:
+It can be represented as:
 
 RADAR
   ↓
@@ -453,10 +448,10 @@ Person?
 Rock?
 Vehicle?
 Pole?
-That's where another sensor can complement it.
+Another sensor can therefore complement radar.
 
-14. Camera
-Camera = your system's eyes.
+## 14. Camera
+The camera provides the system's visual sensing function.
 It can potentially provide rich visual information.
 It can identify:
 
@@ -471,7 +466,7 @@ But:
 Dense fog severely reduces visual visibility.
 So camera alone is not a reliable solution for the exact problem.
 
-15. Thermal camera
+## 15. Thermal Camera
 Thermal camera detects infrared radiation associated with temperature.
 So:
 
@@ -481,17 +476,17 @@ Normal camera:
 Thermal:
 "What temperature/heat pattern does it emit?"
 A human may stand out from the background.
-But you correctly identified an important problem:
+An important limitation is:
 
 Hot machinery and hot rocks can also produce strong thermal signatures.
 Therefore:
 thermal ≠ automatic human detection.
 It needs interpretation and/or sensor fusion.
 
-16. GPS
+## 16. GPS
 GPS answers:
 
-“Where am I?”
+“What is the vehicle's location?”
 It does NOT answer:
 
 “What's 20 metres in front of me?”
@@ -510,9 +505,8 @@ geofencing
 dangerous-zone identification
 But GPS alone cannot prevent a collision.
 
-17. GPS + mapping
-Now it becomes more interesting.
-Suppose the system knows:
+## 17. GPS and Mapping
+The combined function becomes more informative when the system knows:
 
 Current location
        ↓
@@ -528,9 +522,9 @@ Instead of waiting for the camera to see the curve, the system already knows:
 
 “There is a sharp bend ahead.”
 
-18. What is V2V?
+## 18. V2V Definition
 V2V = Vehicle-to-Vehicle communication.
-Imagine two dumpers:
+Consider two dumpers:
 
 🚛 A                     🚛 B
 
@@ -549,9 +543,9 @@ North
 Status:
 Emergency braking
 Vehicle B receives that information.
-This is powerful in fog because the vehicles don't have to depend entirely on visual detection.
+This is powerful in fog because the vehicles do not have to depend entirely on visual detection.
 
-19. What is V2I?
+## 19. V2I Definition
 V2I = Vehicle-to-Infrastructure.
 Vehicle communicates with infrastructure.
 For example:
@@ -571,8 +565,8 @@ hazard zones
 traffic information
 alerts
 
-20. The biggest concept you need to research: Sensor Fusion
-I think this is one of the concepts you were missing.
+## 20. Sensor Fusion
+Sensor fusion is a central concept for research.
 Instead of asking:
 
 “Which single sensor solves fog?”
@@ -600,141 +594,140 @@ CAMERA ────────────┼───────────�
               HIGH RISK
                    ↓
               🚨 ALERT
-This is potentially the core technical direction of your project.
+This is potentially the core technical direction of the project.
 
-21. What is the core engineering problem?
-Don't define your project as:
+## 21. Core Engineering Problem
+The project should not be defined as:
 
-“We are making an AI system for mines.”
+“An AI system for mines is being developed.”
 That's weak.
 A stronger definition is:
 
-“We are developing a multi-sensor driver-assistance and fleet-awareness system that maintains situational awareness of mine vehicles when human visibility becomes inadequate.”
-Now everything has a purpose.
+“A multi-sensor driver-assistance and fleet-awareness system is being developed to maintain situational awareness of mine vehicles when human visibility becomes inadequate.”
+This definition assigns a purpose to each system element.
 
-22. Research Checklist — BEFORE COMMITTING
+## 22. Research Checklist — Before Commitment
 This is the most important section.
-Don't start hardware development until your team has checked these.
+Hardware development should not begin until the project team has checked these items.
 A. Problem Understanding
- Can every team member explain the problem in their own words?
- Can everyone explain why fog is dangerous?
- Can everyone explain what happens when visibility drops to 3–5 m?
- Understand what HEMM means.
- Understand what a haul road is.
- Understand what a dumper is.
- Understand the typical mine transportation cycle.
- Understand loading → transportation → unloading → return.
- Understand why stopping vehicles affects production.
- Understand the difference between safety and productivity.
- Identify exactly what the driver cannot see.
- Identify exactly what information the driver needs.
- Identify exactly what decisions the driver has to make.
+- [ ] Can every team member explain the problem in their own words?
+- [ ] Can everyone explain why fog is dangerous?
+- [ ] Can everyone explain what happens when visibility drops to 3–5 m?
+- [ ] Understand what HEMM means.
+- [ ] Understand what a haul road is.
+- [ ] Understand what a dumper is.
+- [ ] Understand the typical mine transportation cycle.
+- [ ] Understand loading → transportation → unloading → return.
+- [ ] Understand why stopping vehicles affects production.
+- [ ] Understand the difference between safety and productivity.
+- [ ] Identify exactly what the driver cannot see.
+- [ ] Identify exactly what information the driver needs.
+- [ ] Identify exactly what decisions the driver has to make.
 
-23. Mining Operations Research
- Learn how open-cast iron ore mining works.
- Study Bailadila mines.
- Study Kirandul.
- Study Bacheli.
- Study Donimalai.
- Understand mine haul roads.
- Understand mine road geometry.
- Understand gradients.
- Understand curves/hairpin bends.
- Understand loading points.
- Understand dumping/unloading points.
- Understand mine traffic rules.
- Understand HEMM.
- Understand dumper sizes.
- Understand typical dumper speeds.
- Understand braking distances.
- Understand blind spots.
- Understand reversing.
- Understand overtaking.
- Understand mixed traffic.
- Understand interaction between light vehicles and heavy vehicles.
+## 23. Mining Operations Research
+- Establish how open-cast iron ore mining works.
+- Study Bailadila mines.
+- Study Kirandul.
+- Study Bacheli.
+- Study Donimalai.
+- Characterize mine haul roads.
+- Characterize mine road geometry.
+- Characterize gradients.
+- Characterize curves/hairpin bends.
+- Identify loading points.
+- Identify dumping/unloading points.
+- Study mine traffic rules.
+- Study HEMM.
+- Study dumper sizes.
+- Establish typical dumper speeds.
+- Establish braking distances.
+- Study blind spots.
+- Study reversing.
+- Study overtaking.
+- Study mixed traffic.
+- Study interaction between light vehicles and heavy vehicles.
 DGMS material is particularly important here because vehicle movement is a recognized safety issue in open-cast mining. DGMS has specifically highlighted wheeled trackless transportation machinery, including dumpers and trucks, and historical guidance has emphasized visibility, haul roads and vehicle safety. (Directorate General of Mines Safety)
 
-24. Accident Research
-This should be one of your highest-priority research tracks.
-Don't search only for:
+## 24. Accident Research
+This should be one of the highest-priority research tracks.
+The search should not be limited to:
 
 “fog mining accidents.”
 Search broadly for:
 
- Indian open-cast mine accidents
- dumper accidents
- HEMM accidents
- haul-road accidents
- vehicle collision accidents
- run-over accidents
- reversing accidents
- head-on collisions
- vehicle rollover
- blind-spot accidents
- visibility-related accidents
- monsoon mining accidents
- Bailadila accidents
- NMDC safety incidents
- DGMS accident statistics
+- Indian open-cast mine accidents
+- dumper accidents
+- HEMM accidents
+- haul-road accidents
+- vehicle collision accidents
+- run-over accidents
+- reversing accidents
+- head-on collisions
+- vehicle rollover
+- blind-spot accidents
+- visibility-related accidents
+- monsoon mining accidents
+- Bailadila accidents
+- NMDC safety incidents
+- DGMS accident statistics
 A particularly useful official source is the DGMS annual report. Its 2024 report states that 36% of fatal accidents analyzed in 2023 in opencast coal mines involved dumpers, tippers, trucks and similar vehicles; among those accidents, it reports run-over, being-hit, head-on collision and toppling categories. (Directorate General of Mines Safety)
-Important: Don't present this as “36% of all Indian mining accidents.” It is specifically the DGMS analysis described in that report. Always preserve the source context.
+Important: This should not be presented as “36% of all Indian mining accidents.” It is specifically the DGMS analysis described in that report. The source context must always be preserved.
 
-25. Accident Data Table
-Build your own research spreadsheet.
+## 25. Accident Data Table
+Build a research spreadsheet.
 
 | Year | Mine | Vehicle | Accident type | Cause | Visibility/weather | Fatalities | Injuries | Source |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | YYYY | Mine | Dumper | Collision | Visibility | Fog | XX | XX | DGMS |
 | YYYY | Mine | Dumper | Run-over | Human/vehicle | Unknown | XX | XX | DGMS |
 
-Try to build 20–50 credible incidents.
-Then look for patterns.
-You want to be able to say:
+The research should compile 20–50 credible incidents.
+The resulting data should then be examined for patterns.
+The intended evidence-based conclusion is:
 
-“We didn't invent this problem. We analyzed actual incidents and found recurring failure modes.”
+“This problem was not invented. Actual incidents were analyzed and recurring failure modes were identified.”
 
-26. Research the Existing Safety Systems
-You need to know:
+## 26. Existing Safety Systems Research
+The research needs to establish:
 
 “What are mines already doing?”
-Otherwise a judge can ask:
+Otherwise, a judge may ask:
 
-“Why isn't the existing system enough?”
+“Why is the existing system insufficient?”
 Research:
 
- Rear-view cameras
- Reverse alarms
- Proximity detection
- Collision avoidance systems
- Operator training
- Mine traffic rules
- Speed monitoring
- Fleet management
- GPS tracking
- Radio communication
- Lighting systems
- Fog lights
- Beacon systems
- Radar systems
- Camera systems
- Driver monitoring
- Dispatch systems
-DGMS records show that safety provisions already exist around HEMM, rear vision, alarms, haul roads and transportation. That means your solution needs to complement or improve existing controls, not pretend nothing exists. (Directorate General of Mines Safety)
+- Rear-view cameras
+- Reverse alarms
+- Proximity detection
+- Collision avoidance systems
+- Operator training
+- Mine traffic rules
+- Speed monitoring
+- Fleet management
+- GPS tracking
+- Radio communication
+- Lighting systems
+- Fog lights
+- Beacon systems
+- Radar systems
+- Camera systems
+- Driver monitoring
+- Dispatch systems
+DGMS records show that safety provisions already exist around HEMM, rear vision, alarms, haul roads and transportation. Therefore, the solution needs to complement or improve existing controls rather than imply that no existing controls exist. (Directorate General of Mines Safety)
 
-27. Competitor / Existing Technology Research
-Find commercial systems.
-Research:
+## 27. Competitor / Existing Technology Research
+Commercial systems should be identified and researched:
 
- Mining collision avoidance systems
- Mining proximity detection systems
- Autonomous haul trucks
- Radar-based collision warning
- LiDAR mining systems
- Thermal mining systems
- Mine fleet management
- ADAS for heavy vehicles
- V2V mining systems
- Open-pit mine safety systems
+- Mining collision avoidance systems
+- Mining proximity detection systems
+- Autonomous haul trucks
+- Radar-based collision warning
+- LiDAR mining systems
+- Thermal mining systems
+- Mine fleet management
+- ADAS for heavy vehicles
+- V2V mining systems
+- Open-pit mine safety systems
 For every system record:
 
 Company
@@ -745,92 +738,92 @@ Price if available
 Deployment environment
 Strengths
 Weaknesses
-What it doesn't solve
-Your goal is to find:
+What it does not solve
+The objective is to identify:
 
 The gap.
 
-28. Sensor Research
-Create a separate document.
+## 28. Sensor Research
+A separate document should be created.
 
 Camera
 Research:
 
- RGB camera
- low-light camera
- night vision
- camera resolution
- FPS
- field of view
- fog performance
- rain performance
- dust performance
+- RGB camera
+- low-light camera
+- night vision
+- camera resolution
+- FPS
+- field of view
+- fog performance
+- rain performance
+- dust performance
 
 Radar
 Research:
 
- What radar actually measures
- radar frequency bands
- detection range
- angle resolution
- velocity measurement
- fog performance
- rain performance
- dust performance
- false detections
- cost
- availability
+- What radar actually measures
+- radar frequency bands
+- detection range
+- angle resolution
+- velocity measurement
+- fog performance
+- rain performance
+- dust performance
+- false detections
+- cost
+- availability
 
 LiDAR
 Research:
 
- How LiDAR works
- point cloud
- 2D vs 3D LiDAR
- range
- accuracy
- field of view
- fog limitations
- rain limitations
- dust limitations
- computational requirements
- cost
+- How LiDAR works
+- point cloud
+- 2D vs 3D LiDAR
+- range
+- accuracy
+- field of view
+- fog limitations
+- rain limitations
+- dust limitations
+- computational requirements
+- cost
 
 Thermal
 Research:
 
- Thermal imaging basics
- human detection
- machinery detection
- hot rocks
- temperature differences
- rain/fog effects
- thermal resolution
- cost
+- Thermal imaging basics
+- human detection
+- machinery detection
+- hot rocks
+- temperature differences
+- rain/fog effects
+- thermal resolution
+- cost
 
 GPS/DGPS
 Research:
 
- GPS accuracy
- DGPS accuracy
- RTK GPS
- GPS limitations
- GPS-denied environments
- vehicle tracking
- geofencing
- digital maps
+- GPS accuracy
+- DGPS accuracy
+- RTK GPS
+- GPS limitations
+- GPS-denied environments
+- vehicle tracking
+- geofencing
+- digital maps
 
 IMU
 Learn:
 
- accelerometer
- gyroscope
- orientation
- vehicle motion
- sensor fusion with GPS
+- accelerometer
+- gyroscope
+- orientation
+- vehicle motion
+- sensor fusion with GPS
 
-29. Sensor Comparison Matrix
-You should eventually create something like:
+## 29. Sensor Comparison Matrix
+The research should eventually produce a matrix such as:
 
 | Requirement | Camera | Radar | LiDAR | Thermal | GPS |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -844,52 +837,52 @@ You should eventually create something like:
 | Object classification | Excellent | Limited | Moderate | Good | ❌ |
 | Position | ❌ | Relative | Relative | Relative | Excellent |
 
-Don't blindly copy these ratings into your final presentation. Validate them experimentally and from manufacturer/technical documentation.
+These ratings should not be copied blindly into the final presentation. They should be validated experimentally and against manufacturer/technical documentation.
 
-30. Sensor Fusion Research
+## 30. Sensor Fusion Research
 This should be a major research topic.
 Learn:
 
- What sensor fusion means
- Early fusion
- Late fusion
- radar + camera fusion
- LiDAR + camera fusion
- GPS + IMU fusion
- Kalman filtering
- object tracking
- multi-object tracking
- confidence scores
- false positives
- false negatives
+- What sensor fusion means
+- Early fusion
+- Late fusion
+- radar + camera fusion
+- LiDAR + camera fusion
+- GPS + IMU fusion
+- Kalman filtering
+- object tracking
+- multi-object tracking
+- confidence scores
+- false positives
+- false negatives
 
-31. AI/ML Research
-Don't just learn “AI.”
-Determine exactly where AI is useful.
+## 31. AI/ML Research
+The research should not be limited to learning “AI.”
+It should determine exactly where AI is useful.
 Research:
 
- Object detection
- YOLO
- object classification
- object tracking
- semantic segmentation
- road segmentation
- obstacle detection
- anomaly detection
- collision prediction
- time-to-collision
- sensor fusion ML
- edge AI
- model latency
- model accuracy
- false-positive rate
- false-negative rate
+- Object detection
+- YOLO
+- object classification
+- object tracking
+- semantic segmentation
+- road segmentation
+- obstacle detection
+- anomaly detection
+- collision prediction
+- time-to-collision
+- sensor fusion ML
+- edge AI
+- model latency
+- model accuracy
+- false-positive rate
+- false-negative rate
 
-32. The Most Important AI Question
+## 32. The Most Important AI Question
 Ask:
 
 “What prediction does our AI make that a simple threshold/rule cannot make reliably?”
-If you can't answer that, don't use AI there.
+If this cannot be answered, AI should not be used for that function.
 Example:
 
 No AI needed
@@ -923,22 +916,22 @@ Predict movement
        ↓
 
 Collision risk
-That distinction will make your project much more technically credible.
+That distinction will make the project much more technically credible.
 
-33. Collision Prediction Research
+## 33. Collision Prediction Research
 This is potentially one of the most important areas.
 Research:
 
- stopping distance
- reaction time
- braking distance
- vehicle speed
- relative velocity
- distance
- time-to-collision (TTC)
- trajectory prediction
- road geometry
- vehicle heading
+- stopping distance
+- reaction time
+- braking distance
+- vehicle speed
+- relative velocity
+- distance
+- time-to-collision (TTC)
+- trajectory prediction
+- road geometry
+- vehicle heading
 For example:
 
 Vehicle speed = 25 km/h
@@ -947,11 +940,10 @@ Object speed = 0
 The system needs to determine:
 
 “Is 15 m safe or dangerous?”
-Distance alone isn't enough.
+Distance alone is not enough.
 
-34. Road-Curve Detection
-You specifically asked about this.
-Research three approaches:
+## 34. Road-Curve Detection
+Three approaches should be researched:
 
 Approach 1 — Digital map
 GPS location
@@ -975,117 +967,117 @@ LiDAR
 3D road geometry
  ↓
 Road boundary/terrain
-Then compare them.
+The three approaches should then be compared.
 
-35. Communication Research
+## 35. Communication Research
 Research:
 
- Wi-Fi
- LoRa
- private LTE/5G
- RF communication
- V2V
- V2I
- MQTT
- CAN bus
- Ethernet
- edge-to-cloud communication
- offline operation
- communication latency
- packet loss
- communication range
+- Wi-Fi
+- LoRa
+- private LTE/5G
+- RF communication
+- V2V
+- V2I
+- MQTT
+- CAN bus
+- Ethernet
+- edge-to-cloud communication
+- offline operation
+- communication latency
+- packet loss
+- communication range
 
-36. Hardware Research
-You need to determine:
+## 36. Hardware Research
+The following needs to be determined:
 
 Processing
 Possible platforms:
 
- Raspberry Pi
- NVIDIA Jetson
- ESP32
- Arduino
- STM32
- industrial edge computer
+- Raspberry Pi
+- NVIDIA Jetson
+- ESP32
+- Arduino
+- STM32
+- industrial edge computer
 
 Sensors
- radar
- camera
- GPS
- IMU
- optional LiDAR
- optional thermal
+- radar
+- camera
+- GPS
+- IMU
+- optional LiDAR
+- optional thermal
 
 Driver interface
- display
- buzzer
- vibration
- LEDs
- speaker
+- display
+- buzzer
+- vibration
+- LEDs
+- speaker
 
 Communication
- wireless module
- networking
- control-room connection
+- wireless module
+- networking
+- control-room connection
 
-37. Software Research
-Your software team should investigate:
+## 37. Software Research
+The software team should investigate:
 
 Edge software
- sensor data acquisition
- preprocessing
- object detection
- object tracking
- sensor fusion
- risk calculation
- alert generation
+- sensor data acquisition
+- preprocessing
+- object detection
+- object tracking
+- sensor fusion
+- risk calculation
+- alert generation
 
 Backend
- API
- database
- event storage
- vehicle telemetry
- user management
+- API
+- database
+- event storage
+- vehicle telemetry
+- user management
 
 Dashboard
- live map
- vehicle positions
- active alerts
- historical incidents
- vehicle status
- weather/visibility
- analytics
+- live map
+- vehicle positions
+- active alerts
+- historical incidents
+- vehicle status
+- weather/visibility
+- analytics
 
 AI
- model training
- dataset
- model deployment
- inference
- edge optimization
+- model training
+- dataset
+- model deployment
+- inference
+- edge optimization
 
-38. Dataset Research
-This could become one of your biggest challenges.
-Ask:
+## 38. Dataset Research
+This could become one of the biggest challenges.
+The key question is:
 
-Where are we getting training data?
+Where will training data be obtained?
 Research:
 
- mining vehicle datasets
- fog datasets
- pedestrian detection datasets
- vehicle detection datasets
- adverse weather datasets
- synthetic fog generation
- custom dataset collection
- simulation
- data augmentation
-You may discover that actual Indian mine fog datasets are difficult to obtain.
+- mining vehicle datasets
+- fog datasets
+- pedestrian detection datasets
+- vehicle detection datasets
+- adverse weather datasets
+- synthetic fog generation
+- custom dataset collection
+- simulation
+- data augmentation
+Actual Indian mine fog datasets may be difficult to obtain.
 That itself becomes a major project consideration.
 
-39. Prototype Research
-Before buying components, decide:
+## 39. Prototype Research
+Before components are purchased, determine:
 
-What exactly are we demonstrating?
+What exactly will be demonstrated?
 For example:
 
 Miniature mine environment
@@ -1103,7 +1095,7 @@ Miniature mine environment
     🚨 Warning
          ↓
      Dashboard
-Then demonstrate:
+The prototype should then demonstrate:
 
 Test 1
 Vehicle ahead.
@@ -1123,29 +1115,29 @@ Two vehicles approaching.
 Test 6
 Vehicle suddenly stops.
 
-40. Fog Simulation Research
-Your real environment is difficult to reproduce.
+## 40. Fog Simulation Research
+The real environment is difficult to reproduce.
 Research:
 
- fog chamber
- ultrasonic fogger
- water mist
- controlled visibility
- visibility measurement
- camera degradation
- radar performance
- LiDAR performance
-The goal is not:
+- fog chamber
+- ultrasonic fogger
+- water mist
+- controlled visibility
+- visibility measurement
+- camera degradation
+- radar performance
+- LiDAR performance
+The objective is not:
 
-“Look, we added smoke.”
-The goal is:
+“Smoke has been added.”
+The objective is:
 
-“At controlled visibility levels, we measured how our system behaves.”
+“At controlled visibility levels, system behaviour was measured.”
 That is much stronger.
 
-41. Testing Metrics
-Judges will appreciate measurable results.
-Research how to measure:
+## 41. Testing Metrics
+Measurable results are required for evaluation.
+The following measurement methods should be researched:
 
 Detection
 Accuracy
@@ -1177,8 +1169,8 @@ power consumption
 operating temperature
 battery life
 
-42. Cost Research
-This is extremely important because the PS specifically asks for a cost-effective solution.
+## 42. Cost Research
+This is essential because the PS specifically asks for a cost-effective solution.
 Create a BOM:
 
 | Component | Quantity | Estimated cost |
@@ -1195,15 +1187,14 @@ Create a BOM:
 | Wiring/connectors | — | ₹ |
 | **Total** | | **₹** |
 
-Then ask:
+The following deployment question should then be evaluated:
 
 Could a mine realistically deploy this on 10, 100 or 500 vehicles?
-That's where your project becomes commercially interesting.
+That is where the project becomes commercially interesting.
 
-43. Ruggedization Research
-Remember:
-You aren't building this for a college laboratory.
-You're building for:
+## 43. Ruggedization Research
+The system is not intended solely for a college laboratory.
+It is intended for operation under:
 
 rain
 mud
@@ -1215,42 +1206,42 @@ mechanical shocks
 long operating hours
 Research:
 
- IP ratings
- vibration resistance
- temperature range
- waterproofing
- dust protection
- mounting
- cable protection
- sensor cleaning
- maintenance
+- IP ratings
+- vibration resistance
+- temperature range
+- waterproofing
+- dust protection
+- mounting
+- cable protection
+- sensor cleaning
+- maintenance
 
-44. Power Research
+## 44. Power Research
 Research:
 
- vehicle power supply
- voltage conversion
- power consumption
- battery backup
- surge protection
- thermal management
- emergency shutdown
+- vehicle power supply
+- voltage conversion
+- power consumption
+- battery backup
+- surge protection
+- thermal management
+- emergency shutdown
 
-45. Mine Connectivity Research
-Do not assume:
+## 45. Mine Connectivity Research
+The following should not be assumed:
 
 “There will be Wi-Fi everywhere.”
 Research actual mine communication conditions.
 Ask:
 
- Is cellular available?
- Is 4G available?
- Is 5G available?
- Is Wi-Fi available?
- Is private network infrastructure available?
- Are there dead zones?
- Can the system work offline?
- What happens if communication fails?
+- Is cellular available?
+- Is 4G available?
+- Is 5G available?
+- Is Wi-Fi available?
+- Is private network infrastructure available?
+- Are there dead zones?
+- Can the system work offline?
+- What happens if communication fails?
 A good system should probably degrade gracefully:
 
 NETWORK AVAILABLE
@@ -1266,19 +1257,19 @@ Data stored locally
 Sync later
 This is an important engineering principle.
 
-46. Fail-Safe Research
+## 46. Fail-Safe Research
 This is a safety system, so failure matters.
 Research:
 
- What happens if radar fails?
- What happens if camera fails?
- What happens if GPS fails?
- What happens if AI crashes?
- What happens if network fails?
- What happens if sensor gives incorrect data?
- What happens if power drops?
- What happens if system overheats?
-Your solution should never create a new danger.
+- What happens if radar fails?
+- What happens if camera fails?
+- What happens if GPS fails?
+- What happens if AI crashes?
+- What happens if network fails?
+- What happens if sensor gives incorrect data?
+- What happens if power drops?
+- What happens if system overheats?
+The solution should never create a new danger.
 For example:
 
 False alert → annoying.
@@ -1287,42 +1278,42 @@ But:
 Missed human detection → potentially catastrophic.
 Therefore research false negatives carefully.
 
-47. Human Factors
+## 47. Human Factors
 The driver is not a robot.
 Research:
 
- Driver workload
- alert fatigue
- too many warnings
- audible warning levels
- visual warning design
- vibration
- voice warnings
- reaction time
- usability
- training requirement
-Ask:
+- Driver workload
+- alert fatigue
+- too many warnings
+- audible warning levels
+- visual warning design
+- vibration
+- voice warnings
+- reaction time
+- usability
+- training requirement
+The following question should be answered:
 
 What is the minimum information the driver needs to make the correct decision?
 
-48. Regulatory Research
+## 48. Regulatory Research
 This is another area teams often forget.
 Research:
 
- DGMS regulations
- Coal Mines Regulations where applicable
- metalliferous mine safety requirements
- HEMM safety requirements
- mine traffic rules
- vehicle safety standards
- radio/wireless regulations
- data privacy
- worker monitoring/privacy
- facial recognition implications if you ever include it
-DGMS has specific safety provisions concerning HEMM and wheeled trackless transportation machinery, so regulatory compatibility needs to be part of your research. (Directorate General of Mines Safety)
+- DGMS regulations
+- Coal Mines Regulations where applicable
+- metalliferous mine safety requirements
+- HEMM safety requirements
+- mine traffic rules
+- vehicle safety standards
+- radio/wireless regulations
+- data privacy
+- worker monitoring/privacy
+- facial recognition implications if it is included
+DGMS has specific safety provisions concerning HEMM and wheeled trackless transportation machinery, so regulatory compatibility needs to be part of the research. (Directorate General of Mines Safety)
 
-49. Business Model Research
-Yes — you should research this, but don't make it the center of a technical SIH presentation.
+## 49. Business Model Research
+This should be researched, but should not be the center of a technical SIH presentation.
 Potential customer:
 
 NMDC / large open-cast mining companies.
@@ -1347,8 +1338,8 @@ monitoring platform
 sensor replacement
 support/training
 
-50. Deployment Model
-Think about how your system goes from:
+## 50. Deployment Model
+The deployment progression should be defined as follows:
 
 Prototype
    ↓
@@ -1363,17 +1354,17 @@ Pilot mine
 Entire fleet
 Research:
 
- Installation time
- Maintenance
- Calibration
- Training
- Network infrastructure
- Software updates
- Sensor replacement
- Scaling
+- Installation time
+- Maintenance
+- Calibration
+- Training
+- Network infrastructure
+- Software updates
+- Sensor replacement
+- Scaling
 
-51. Business Case
-Don't only say:
+## 51. Business Case
+The business case should not state only:
 
 “It saves lives.”
 Also ask:
@@ -1390,7 +1381,7 @@ accident costs
 equipment damage
 maintenance
 operational delays
-Your business case becomes:
+The business case becomes:
 
 Better visibility
        ↓
@@ -1405,18 +1396,18 @@ Higher fleet utilization
 Higher productivity
 Do not invent monetary savings. Calculate them only after obtaining defensible assumptions/data.
 
-52. Sustainability
+## 52. Sustainability
 Research:
 
- fuel savings
- reduced idle time
- efficient haulage
- reduced accident-related waste
- energy consumption of electronics
- maintenance requirements
+- fuel savings
+- reduced idle time
+- efficient haulage
+- reduced accident-related waste
+- energy consumption of electronics
+- maintenance requirements
 
-53. Scalability
-Ask:
+## 53. Scalability
+The following question should be answered:
 
 Can this work only on one demo truck?
 If yes, weak.
@@ -1429,26 +1420,26 @@ Better:
 100 vehicles
      ↓
 500 vehicles
-Research how your architecture scales.
+Research how the architecture scales.
 
-54. Cybersecurity
-Because you're creating connected vehicles, research:
+## 54. Cybersecurity
+Because the system consists of connected vehicles, research:
 
- encrypted communication
- authentication
- secure device identity
- dashboard authentication
- firmware updates
- network security
- data integrity
- attack prevention
-You don't want someone spoofing:
+- encrypted communication
+- authentication
+- secure device identity
+- dashboard authentication
+- firmware updates
+- network security
+- data integrity
+- attack prevention
+The system must prevent spoofing of the following message:
 
 “Vehicle A is here”
-when it isn't.
+when it is not.
 
-55. What Judges Will Probably Ask
-Prepare answers to these.
+## 55. Questions Judges Will Probably Ask
+The project team should prepare answers to these questions.
 
 Problem
 Why is this actually a serious problem?
@@ -1459,8 +1450,8 @@ What happens today?
 
 Existing solutions
 What is already being used?
-Why isn't it sufficient?
-What is your innovation?
+Why is it insufficient?
+What is the innovation?
 
 Hardware
 Why radar?
@@ -1472,12 +1463,12 @@ Why not only radar?
 AI
 Why AI?
 What exactly does the model predict?
-What dataset did you use?
-What accuracy did you achieve?
+What dataset was used?
+What accuracy was achieved?
 What happens if the AI is wrong?
 
 Safety
-What happens if your system fails?
+What happens if the system fails?
 What happens if the network fails?
 What happens if GPS fails?
 What happens if a sensor fails?
@@ -1491,10 +1482,10 @@ How does it scale?
 Deployment
 Can it work in actual mines?
 Can it survive dust/rain/vibration?
-How will you install it?
+How will it be installed?
 What happens during maintenance?
 
-56. What Your Presentation Should Eventually Contain
+## 56. Recommended Presentation Structure
 A strong structure could be:
 
 Slide 1 — The Problem
@@ -1539,9 +1530,9 @@ But...
      ↓
 Limited situational awareness
 during extreme low visibility
-Don't claim existing systems are ineffective unless your research proves it.
+Existing systems should not be described as ineffective unless the research proves it.
 
-57. Slide 5 — Your Solution
+## 57. Slide 5 — Proposed Solution
 Something like:
 
 Multi-Sensor Intelligent Mine Safety & Mobility System
@@ -1563,8 +1554,8 @@ Driver Alert
        +
 Fleet Dashboard
 
-58. Slide 6 — How It Works
-This is where your “automatic door” analogy becomes useful.
+## 58. Slide 6 — Operating Principle
+The “automatic door” analogy is useful for explaining this sequence.
 
 1. Sensor detects object
              ↓
@@ -1584,10 +1575,10 @@ This is where your “automatic door” analogy becomes useful.
              ↓
 9. Event is logged
 
-59. Slide 7 — AI
-Don't say:
+## 59. Slide 7 — AI
+The presentation should not state only:
 
-“We use AI.”
+“AI is used.”
 Say:
 
 “AI identifies and tracks objects that raw sensors alone cannot reliably classify.”
@@ -1603,8 +1594,8 @@ Tracking
        ↓
 Risk calculation
 
-60. Slide 8 — Hardware
-Show actual hardware.
+## 60. Slide 8 — Hardware
+Actual hardware should be shown.
 
               FRONT
                ↓
@@ -1623,8 +1614,8 @@ Show actual hardware.
                         ↓
                    Control room
 
-61. Slide 9 — Software
-Show:
+## 61. Slide 9 — Software
+The following should be shown:
 
 Sensor data
      ↓
@@ -1642,8 +1633,8 @@ Alerts
      ↓
 Dashboard
 
-62. Slide 10 — Control Room
-Demonstrate:
+## 62. Slide 10 — Control Room
+The demonstration should include:
 
 live vehicle map
 vehicle status
@@ -1652,15 +1643,15 @@ collision risk
 visibility
 historical events
 
-63. Slide 11 — Prototype
-This is where you impress the judges.
-Don't pretend:
+## 63. Slide 11 — Prototype
+The prototype should demonstrate the concept credibly.
+The presentation should not claim:
 
-“We deployed it on a 240-ton dumper.”
-Instead say:
+“The system was deployed on a 240-ton dumper.”
+Instead, it should state:
 
-“We created a scaled physical test environment representing the mine scenario.”
-Then demonstrate:
+“A scaled physical test environment representing the mine scenario was created.”
+The demonstration should then include:
 
 Mini haul road
       ↓
@@ -1678,10 +1669,9 @@ Collision warning
       ↓
 Dashboard
 
-64. Slide 12 — Results
-This is crucial.
-Don't only show screenshots.
-Show:
+## 64. Slide 12 — Results
+This is crucial. Screenshots alone are insufficient.
+The presentation should show:
 
 Object detection accuracy: XX%
 Detection range: XX m
@@ -1689,9 +1679,9 @@ Alert latency: XX ms
 False alarm rate: XX%
 Network latency: XX ms
 Fog visibility tested: XX m
-Actual measured numbers will make your presentation much stronger.
+Actual measured numbers will make the presentation much stronger.
 
-65. Slide 13 — Cost
+## 65. Slide 13 — Cost
 Show:
 
 Prototype cost
@@ -1699,7 +1689,7 @@ Deployment cost
 Estimated per-vehicle cost
 Maintenance
 
-66. Slide 14 — Deployment
+## 66. Slide 14 — Deployment
 Show:
 
 Prototype
@@ -1712,7 +1702,7 @@ Fleet deployment
  ↓
 Multi-mine deployment
 
-67. Slide 15 — Business Model
+## 67. Slide 15 — Business Model
 Example:
 
 Hardware
@@ -1728,7 +1718,7 @@ Customer:
 Mining companies / mine operators
 But validate the actual procurement/deployment pathway before presenting this as fact.
 
-68. Slide 16 — Impact
+## 68. Slide 16 — Impact
 Potential metrics:
 
 reduced collision risk
@@ -1738,91 +1728,91 @@ reduced cycle time
 improved fleet utilization
 improved monitoring
 safer monsoon operations
-Again: measure or calculate these from defensible assumptions. Don't manufacture percentages.
+These should be measured or calculated from defensible assumptions. Percentages should not be manufactured.
 
-69. The Most Important Research Questions
-If your team has limited time, answer these first.
+## 69. The Most Important Research Questions
+If the project team has limited time, these questions should be answered first.
 
 Tier 1 — MUST KNOW
- What exactly happens during 3–5 m visibility?
- What are the actual accident mechanisms?
- How many relevant accidents occur?
- What does DGMS say?
- What safety systems already exist?
- What doesn't existing technology solve?
- What information does the driver need?
- Which sensors work in dense fog?
- What can radar actually detect?
- What can camera actually detect?
- What can LiDAR actually detect?
- What can thermal detect?
- What does GPS actually do?
- Why do we need sensor fusion?
- What exactly does AI do?
- What exactly does the software decide?
- What exactly does the hardware do?
+- What exactly happens during 3–5 m visibility?
+- What are the actual accident mechanisms?
+- How many relevant accidents occur?
+- What does DGMS say?
+- What safety systems already exist?
+- What does existing technology fail to solve?
+- What information does the driver need?
+- Which sensors work in dense fog?
+- What can radar actually detect?
+- What can camera actually detect?
+- What can LiDAR actually detect?
+- What can thermal detect?
+- What does GPS actually do?
+- Why is sensor fusion required?
+- What exactly does AI do?
+- What exactly does the software decide?
+- What exactly does the hardware do?
 
-70. Tier 2 — MUST DESIGN
- System architecture
- Sensor selection
- Processing hardware
- Communication architecture
- Driver interface
- Dashboard
- Risk calculation
- AI model
- Dataset
- Prototype
- Testing environment
- Evaluation metrics
+## 70. Tier 2 — MUST DESIGN
+- System architecture
+- Sensor selection
+- Processing hardware
+- Communication architecture
+- Driver interface
+- Dashboard
+- Risk calculation
+- AI model
+- Dataset
+- Prototype
+- Testing environment
+- Evaluation metrics
 
-71. Tier 3 — MUST VALIDATE
- Cost
- Power
- Network
- Weather
- Dust
- Rain
- Fog
- vibration
- temperature
- false positives
- false negatives
- sensor failure
- communication failure
- AI failure
+## 71. Tier 3 — MUST VALIDATE
+- Cost
+- Power
+- Network
+- Weather
+- Dust
+- Rain
+- Fog
+- vibration
+- temperature
+- false positives
+- false negatives
+- sensor failure
+- communication failure
+- AI failure
 
-72. Tier 4 — WINNING PRESENTATION
- Strong problem story
- Real statistics
- Real incidents
- Primary sources
- Existing solution comparison
- Clear gap
- Clear innovation
- Working prototype
- Live demo
- Measured results
- Cost
- Deployment plan
- Business model
- Scalability
- Safety/fail-safe design
- Future roadmap
+## 72. Tier 4 — WINNING PRESENTATION
+- Strong problem story
+- Real statistics
+- Real incidents
+- Primary sources
+- Existing solution comparison
+- Clear gap
+- Clear innovation
+- Working prototype
+- Live demo
+- Measured results
+- Cost
+- Deployment plan
+- Business model
+- Scalability
+- Safety/fail-safe design
+- Future roadmap
 
-73. What You Should NOT Do
+## 73. What the Project Should NOT Do
 This is equally important.
 
-❌ Don't say:
-“We use AI, LiDAR, radar, thermal, GPS, blockchain, IoT and digital twins.”
+❌ The project should not state:
+“The system uses AI, LiDAR, radar, thermal, GPS, blockchain, IoT and digital twins.”
 That's technology soup.
 
 Instead:
 “The driver loses situational awareness in dense fog. Radar provides robust object ranging, the camera provides object classification, GPS/map data provides road context, and the software combines these inputs to estimate collision risk and issue an actionable warning.”
 Every technology must have a job.
 
-74. Don't Make the Quadruped Problem Mistake
-Your railway PS has a huge scope:
+## 74. Avoid the Quadruped Problem Mistake
+The railway PS has a huge scope:
 
 quadruped
 handheld
@@ -1837,13 +1827,13 @@ control room
 offline operation
 etc.
 The mining PS also lists many technologies.
-That doesn't mean you're expected to build all of them.
+That does not mean that all of them are expected to be built.
 The correct question is:
 
 “What is the smallest complete system that genuinely solves the central problem?”
 
-75. Your First Possible MVP
-If I were your technical mentor, I would initially investigate this:
+## 75. Initial Possible MVP
+An initial investigation could consider the following MVP:
 
               MINE VEHICLE
 
@@ -1867,17 +1857,17 @@ If I were your technical mentor, I would initially investigate this:
                   │
                   ↓
            CONTROL ROOM
-Not because this is definitely the final solution.
-Because it gives your team a starting hypothesis to test.
+This is not necessarily the final solution.
+It provides the team with a starting hypothesis to test.
 
-76. Your Team's Research Should Eventually Answer This
-Put this exact question at the top of your research document:
+## 76. Required Research Question
+The following exact question should appear at the top of the research document:
 
-“How can we provide a mine-dumper operator with reliable information about nearby hazards, vehicle movement and road conditions when human visibility becomes insufficient, without making the system too expensive or unreliable for real mine deployment?”
-If your team can answer that question, you're starting to understand the PS.
+“How can a mine-dumper operator be provided with reliable information about nearby hazards, vehicle movement and road conditions when human visibility becomes insufficient, without making the system too expensive or unreliable for real mine deployment?”
+If the team can answer that question, it is beginning to understand the PS.
 
-77. Divide the Research Among 6 People
-Since you have six people, I would not have everyone research everything.
+## 77. Division of Research Among 6 People
+Given a six-person team, research should be divided rather than assigned identically to every member.
 
 Person 1 — Mining Domain
 Research:
@@ -1914,7 +1904,7 @@ GPS
 IMU
 Deliverable:
 
-“Which sensor should we use and why?”
+“Which sensor should be used and why?”
 
 Person 4 — AI/Software
 Research:
@@ -1941,7 +1931,7 @@ fog simulation
 BOM
 Deliverable:
 
-“Can we actually build this?”
+“Can this actually be built?”
 
 Person 6 — Existing Solutions + Business
 Research:
@@ -1958,8 +1948,8 @@ Deliverable:
 
 “Why would NMDC actually use/buy this?”
 
-78. Then Combine Everything
-After everyone finishes research, create one master document:
+## 78. Consolidation of Research
+After all research is completed, one master document should be created:
 
 1. Problem
        ↓
@@ -2001,13 +1991,13 @@ After everyone finishes research, create one master document:
        ↓
 20. Impact
 
-79. The “Commit or Don't Commit” Test
-Before you officially choose SIH26007, I would want your team to be able to answer these 15 questions without Googling during the discussion:
+## 79. The “Commit or Do Not Commit” Test
+Before SIH26007 is officially selected, the team should be able to answer these 15 questions without external searching during the discussion:
 
 What exactly is the danger caused by fog?
 Who is in danger?
 What type of accidents can occur?
-Why aren't existing safety systems sufficient?
+Why are existing safety systems insufficient?
 What does the driver need to know?
 Which sensor provides that information?
 Why is radar useful?
@@ -2016,117 +2006,117 @@ Why might LiDAR fail in dense fog?
 Why might thermal imaging produce false detections?
 What exactly does AI do?
 What exactly does the non-AI software do?
-What happens if your system is wrong?
-How will you demonstrate it?
+What happens if the system is wrong?
+How will it be demonstrated?
 Why would NMDC actually deploy it?
-If your team can confidently answer all 15:
+If the team can confidently answer all 15:
 
-🟢 You understand the problem enough to start designing.
-If you can answer only 5–6:
+🟢 The problem is understood sufficiently to start designing.
+If the team can answer only 5–6:
 
 🟡 Keep researching.
-If you're still saying:
+If the team is still saying:
 
-“We'll use AI + LiDAR + radar because the problem statement mentions them.”
-🔴 Don't commit yet.
+“AI + LiDAR + radar will be used because the problem statement mentions them.”
+🔴 Do not commit yet.
 
-80. One Important Thing I Want You to Remember
-You said earlier:
+## 80. One Important Consideration
+An earlier observation was:
 
-“I feel this problem is too generic.”
-After going through it carefully, I don't think the underlying problem is generic.
+“This problem seems too generic.”
+After careful examination, the underlying problem is not generic.
 The generic version is:
 
 “AI-based collision detection for vehicles.”
 That is boring.
 The interesting version is:
 
-“How do you maintain safe, productive movement of extremely large mine haul vehicles when the operator's human visibility collapses to only a few metres during severe monsoon fog?”
-Now you've got:
+“How can safe, productive movement of extremely large mine haul vehicles be maintained when the operator's human visibility collapses to only a few metres during severe monsoon fog?”
+The resulting scope includes:
 Mining + extreme weather + heavy machinery + human safety + sensor fusion + edge computing + fleet coordination + productivity + real-world deployment.
-That's considerably more specific.
+This is considerably more specific.
 And there is real evidence that heavy vehicle transportation is a major safety concern in open-cast mining: DGMS has repeatedly issued interventions around dumpers, trucks and other wheeled trackless transportation machinery, including collision, reversing, rear-vision and HEMM safety measures. (Directorate General of Mines Safety)
 
-81. Your Immediate Next Step
-Do not buy sensors yet.
-Do this first:
+## 81. Immediate Next Step
+Sensors should not yet be purchased.
+The following activities should be completed first:
 
 Phase 1 — Understand the mine
- Understand Bailadila.
- Understand HEMM.
- Understand haul roads.
- Understand dumper operation.
- Understand monsoon conditions.
+- Understand Bailadila.
+- Understand HEMM.
+- Understand haul roads.
+- Understand dumper operation.
+- Understand monsoon conditions.
 
 Phase 2 — Prove the problem
- Collect accident data.
- Collect real incidents.
- Collect visibility/weather information.
- Quantify operational losses.
- Identify current safety mechanisms.
+- Collect accident data.
+- Collect real incidents.
+- Collect visibility/weather information.
+- Quantify operational losses.
+- Identify current safety mechanisms.
 
 Phase 3 — Understand technology
- Camera
- Radar
- LiDAR
- Thermal
- GPS
- IMU
- Sensor fusion
- V2V
- V2I
+- Camera
+- Radar
+- LiDAR
+- Thermal
+- GPS
+- IMU
+- Sensor fusion
+- V2V
+- V2I
 
 Phase 4 — Define the intelligence
- What does the system detect?
- What does AI classify?
- What does software calculate?
- What does the system predict?
- What warning does the driver receive?
+- What does the system detect?
+- What does AI classify?
+- What does software calculate?
+- What does the system predict?
+- What warning does the driver receive?
 
 Phase 5 — Design
- Architecture
- Hardware
- Software
- AI
- Communication
- Dashboard
+- Architecture
+- Hardware
+- Software
+- AI
+- Communication
+- Dashboard
 
 Phase 6 — Prototype
- Build small-scale environment.
- Simulate fog.
- Test sensors.
- Test detection.
- Test collision warning.
- Measure performance.
+- Build small-scale environment.
+- Simulate fog.
+- Test sensors.
+- Test detection.
+- Test collision warning.
+- Measure performance.
 
 Phase 7 — Validate
- Accuracy
- latency
- range
- false alarms
- missed detections
- cost
- power
+- Accuracy
+- latency
+- range
+- false alarms
+- missed detections
+- cost
+- power
 [communication
 
 Phase 8 — Winning Story
- Problem
- Evidence
- Gap
- Solution
- Innovation
- Demo
- Results
- Cost
- Deployment
- Business
- Impact
+- Problem
+- Evidence
+- Gap
+- Solution
+- Innovation
+- Demo
+- Results
+- Cost
+- Deployment
+- Business
+- Impact
 
 Final takeaway
-The first milestone for your team should not be a prototype.
-Your first milestone should be:
+The first milestone for the team should not be a prototype.
+The first milestone should be:
 
 “Every member of our six-person team can explain the problem, the danger, the existing solutions, the technological gap, and exactly what our proposed system is supposed to sense, understand, predict, and communicate.”
-Once you reach that point, then we can sit down and design the actual solution from the ground up — sensor by sensor, hardware by hardware, AI model by AI model, software module by software module, and finally the physical prototype and presentation.
-For your research, I would start with DGMS + NMDC primary documents, rather than random blogs. NMDC publishes its annual reports, and DGMS provides accident statistics, circulars and safety material. (National Marine Data Center)
-And importantly, don't try to prove that your system will “eliminate accidents.” The scientifically defensible goal is to improve situational awareness, reduce collision risk, and provide earlier/more reliable warnings under low visibility. That distinction will make your team sound much more credible to judges.
+Once that point is reached, the actual solution can be designed from the ground up — sensor by sensor, hardware by hardware, AI model by AI model, software module by software module, and finally the physical prototype and presentation.
+The research should begin with DGMS + NMDC primary documents rather than random blogs. NMDC publishes its annual reports, and DGMS provides accident statistics, circulars and safety material. (National Marine Data Center)
+Importantly, the project should not attempt to prove that the system will “eliminate accidents.” The scientifically defensible goal is to improve situational awareness, reduce collision risk, and provide earlier/more reliable warnings under low visibility. That distinction will make the team sound much more credible to judges.
